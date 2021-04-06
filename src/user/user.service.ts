@@ -4,6 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './models/user.entity';
 
+//service batabase call 
+
 @Injectable()
 export class UserService {
     constructor(
@@ -14,6 +16,10 @@ export class UserService {
 
 
     async all(): Promise<User[]> {
-        return  await this.userRepository.find();
+        return this.userRepository.find();
+    }
+
+    async create(data): Promise<User> {
+        return this.userRepository.save(data);
     }
 }
