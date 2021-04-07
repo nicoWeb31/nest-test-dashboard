@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './models/user.entity';
 
+
 //service batabase call 
 
 @Injectable()
@@ -25,5 +26,13 @@ export class UserService {
 
     async findOne(condition): Promise<User> {
         return this.userRepository.findOne(condition);
+    }
+
+    async update(id: number, data): Promise<any>{
+        return this.userRepository.update(id, data);
+    }
+
+    async delete(id: number): Promise<any> {
+        return this.userRepository.delete(id);
     }
 }
