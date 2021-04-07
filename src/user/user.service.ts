@@ -35,4 +35,22 @@ export class UserService {
     async delete(id: number): Promise<any> {
         return this.userRepository.delete(id);
     }
+
+    async paginate (page : number = 1): Promise<any> {
+        const take = 5;//number items per page
+        const [users, total] = await this.userRepository.findAndCount({take, skip: (page -1) * take });
+
+        return {
+            data : users.map( u => {
+                const {password, ...data} = u;
+                return data;
+            }),
+            meta: {
+                total: total,
+                page,
+                last_page : Math.ceil(total/take)
+            }
+        };
+
+    }
 }
