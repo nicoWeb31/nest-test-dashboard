@@ -1,5 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Post, Res } from '@nestjs/common';
-import { User } from 'src/user/models/user.entity';
+import { BadRequestException, Body, Controller, Get, Post, Res, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcryptjs';
 import { RegisterDto } from './models/register.dto';
@@ -7,8 +6,12 @@ import { NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 import { Req } from '@nestjs/common';
+import { ClassSerializerInterceptor } from '@nestjs/common';
+import { AuthInterceptor } from './auth.interceptor';
+import { AuthGuard } from './auth.guard';
 
 
+@UseInterceptors(ClassSerializerInterceptor, AuthInterceptor)
 @Controller()
 export class AuthController {
 
@@ -64,13 +67,30 @@ export class AuthController {
     }
 
     //get User by jwt
+    @UseGuards(AuthGuard)
     @Get('user')
     async user(@Req() request: Request){
         const cookie = request.cookies['jwt'];
         const data = await this.jwtService.verifyAsync(cookie);
-        return data;
+        
 
+        const user = await this.userService.findOne({id: data['id']});
+
+        return user;
 
     }
+
+    
+    @UseGuards(AuthGuard)
+    @Post('logout')
+    async logout(@Res({passthrough: true}) response: Response) {
+        response.clearCookie('jwt');
+        return {
+            message: 'Logged with success'
+        }
+    }
+
+
+
 
 }
