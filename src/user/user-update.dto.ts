@@ -5,4 +5,6 @@ export class UserUpdateDto {
     last_name?: string;
 
     mail?: string;
+
+    role_id?: number;
 }
