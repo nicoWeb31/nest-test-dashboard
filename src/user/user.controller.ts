@@ -73,10 +73,11 @@ export class UserController {
 
     @Put('info')
     async userInfoUpdate(@Body() body: UserUpdateDto, @Req() req: Request) {
+        console.log(body);
         console.log('update user info');
         const id = await this.authService.userId(req);
         await this.userService.update(id, body);
 
-        return this.get(id);
+        return this.userService.findOne({ id });
     }
 }
