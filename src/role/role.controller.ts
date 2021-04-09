@@ -31,5 +31,6 @@ export class RoleController {
     @Delete(':id')
     async delete(@Param('id') id: number): Promise<any> {
         return this.roleService.delete(id);
+        
     }
 }
