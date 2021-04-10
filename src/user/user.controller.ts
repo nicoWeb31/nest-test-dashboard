@@ -1,4 +1,5 @@
 import {
+    BadRequestException,
     Body,
     ClassSerializerInterceptor,
     Controller,
@@ -53,8 +54,6 @@ export class UserController {
 
     @Put('info')
     async userInfoUpdate(@Body() body: UserUpdateDto, @Req() req: Request) {
-        console.log(body);
-        console.log('update user info');
         const id = await this.authService.userId(req);
         await this.userService.update(id, body);
 
@@ -81,5 +80,26 @@ export class UserController {
         return this.userService.delete(id);
     }
 
-    async updatePassword() {}
+    @Put('password')
+    async updatePassword(
+        // @Body() body: any,
+        @Body('password') password: string,
+        @Body('password_confirm') password_confirm: string,
+        @Req() req: Request,
+    ) {
+        if (password !== password_confirm) {
+            throw new BadRequestException('password do not match');
+        }
+
+        // console.log(body);
+        const id = await this.authService.userId(req);
+
+        const hashed = await bcrypt.hash(password, 12);
+
+        await this.userService.update(id,{
+            password: hashed
+        });
+
+        return this.userService.findOne({ id });
+    }
 }
