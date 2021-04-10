@@ -23,10 +23,10 @@ export class RoleService extends AbstractService {
     //     return this.roleRepository.save(data);
     // }
 
-    async findOne(condition): Promise<Role> {
-        //Avec les relations
-        return this.roleRepository.findOne(condition, {relations: ['permission']});
-    }
+    // async findOne(condition): Promise<Role> {
+    //     //Avec les relations
+    //     return this.roleRepository.findOne(condition, {relations: ['permission']});
+    // }
 
     // async update(id: number, data): Promise<any>{
     //     return this.roleRepository.update(id, data);

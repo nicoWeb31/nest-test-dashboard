@@ -28,7 +28,7 @@ export class RoleController {
 
     @Get(':id')
     async get(@Param('id') id: number): Promise<Role> {
-        return this.roleService.findOne({ id });
+        return this.roleService.findOne({ id: id}, ['permission']);
     }
 
     @Put(':id')

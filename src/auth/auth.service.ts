@@ -1,4 +1,4 @@
-import { Injectable, Req } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
@@ -14,7 +14,6 @@ export class AuthService {
     async userId( request: Request) : Promise<number> {
         const cookie = request.cookies['jwt'];
         const data = await this.jwtService.verifyAsync(cookie);
-        console.log(data['id'])
         return data['id'];
     }
 }
