@@ -18,8 +18,8 @@ export abstract class AbstractService {
         return this.repo.findOne(condition, {relations});
     }
 
-    async update(id: number, data : object): Promise<any> {
-        return this.repo.update(id, data);
+    async update(id: number, dataObj : object): Promise<any> {
+        return this.repo.update(id, dataObj);
     }
 
     async delete(id: number): Promise<any> {

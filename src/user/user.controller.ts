@@ -82,11 +82,15 @@ export class UserController {
 
     @Put('password')
     async updatePassword(
+
+        //TODO: this route bug !!!
         // @Body() body: any,
         @Body('password') password: string,
         @Body('password_confirm') password_confirm: string,
         @Req() req: Request,
     ) {
+
+        
         if (password !== password_confirm) {
             throw new BadRequestException('password do not match');
         }

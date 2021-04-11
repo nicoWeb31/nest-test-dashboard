@@ -14,6 +14,7 @@ export class AuthService {
     async userId( request: Request) : Promise<number> {
         const cookie = request.cookies['jwt'];
         const data = await this.jwtService.verifyAsync(cookie);
+        console.log("🚀 ~ file: auth.service.ts ~ line 17 ~ AuthService ~ userId ~ data", data)
         return data['id'];
     }
 }
