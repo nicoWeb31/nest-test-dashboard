@@ -896,6 +896,13 @@
   "resolved" "https://registry.npmjs.org/@types/mime/-/mime-1.3.2.tgz"
   "version" "1.3.2"
 
+"@types/multer@^1.4.5":
+  "integrity" "sha512-9b/0a8JyrR0r2nQhL73JR86obWL7cogfX12augvlrvcpciCo/hkvEsgu80Z4S2g2DHGVXHr8pUIi1VhqFJ8Ufw=="
+  "resolved" "https://registry.npmjs.org/@types/multer/-/multer-1.4.5.tgz"
+  "version" "1.4.5"
+  dependencies:
+    "@types/express" "*"
+
 "@types/node@*", "@types/node@^14.14.36":
   "integrity" "sha512-XYmBiy+ohOR4Lh5jE379fV2IU+6Jn4g5qASinhitfyO71b/sCo6MKsMLF5tc7Zf2CE8hViVQyYSobJNke8OvUw=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-14.14.37.tgz"
@@ -4869,7 +4876,7 @@
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.1.1.tgz"
   "version" "2.1.1"
 
-"multer@1.4.2":
+"multer@^1.4.2", "multer@1.4.2":
   "integrity" "sha512-xY8pX7V+ybyUpbYMxtjM9KAiD9ixtg5/JkeKUTD6xilfDv0vzzOFcCp4Ljb1UU3tSOM3VTZtKo63OmzOrGi3Cg=="
   "resolved" "https://registry.npmjs.org/multer/-/multer-1.4.2.tgz"
   "version" "1.4.2"
