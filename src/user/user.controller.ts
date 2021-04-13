@@ -21,6 +21,7 @@ import { UserUpdateDto } from './user-update.dto';
 import { Query } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { Request } from 'express';
+import { HasPermission } from 'src/permission/has-permission.decorator';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
@@ -32,6 +33,7 @@ export class UserController {
     ) {}
 
     @Get()
+    // @HasPermission('users')
     async all(@Query('page') page: number = 1): Promise<any> {
         return this.userService.paginate(page, ['role']);
     }
@@ -61,6 +63,7 @@ export class UserController {
     }
 
     @Get(':id')
+    @HasPermission('users')
     async get(@Param('id') id: number) {
         return this.userService.findOne(id, ['role']);
     }
@@ -82,15 +85,12 @@ export class UserController {
 
     @Put('password')
     async updatePassword(
-
         //TODO: this route bug !!!
         // @Body() body: any,
         @Body('password') password: string,
         @Body('password_confirm') password_confirm: string,
         @Req() req: Request,
     ) {
-
-        
         if (password !== password_confirm) {
             throw new BadRequestException('password do not match');
         }
@@ -100,8 +100,8 @@ export class UserController {
 
         const hashed = await bcrypt.hash(password, 12);
 
-        await this.userService.update(id,{
-            password: hashed
+        await this.userService.update(id, {
+            password: hashed,
         });
 
         return this.userService.findOne({ id });
