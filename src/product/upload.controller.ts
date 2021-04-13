@@ -22,8 +22,8 @@ export class UploadController {
                 filename(req, file, collaback) {
                     const randomName = Array(32)
                         .fill(null)
-                        .map(() => Math.round(Math.random() * 15).toString())
-                        .join();
+                        .map(() => Math.round(Math.random() * 15))
+                        .join('');
                     return collaback(
                         null,
                         `${randomName}${extname(file.originalname)}`,
